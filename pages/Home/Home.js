@@ -93,8 +93,6 @@ Page({
     bgMap.forEach((line, y) => {
       line.forEach((item, x) => {
         if (item !== 0) {
-          console.log('%c [ x * size ]-99', 'font-size:px; background:pink; color:#bf2c9f;', x * size)
-          console.log('%c [ images ]-98', 'font-size:px; background:pink; color:#bf2c9f;', images)
           ctx.drawImage(images.filter(img => {
             return img.id === item
           })[0].img, x * size, y * size, size, size)
@@ -125,7 +123,7 @@ Page({
     let at = null
     bgMap.forEach((line, y) => {
       line.forEach((item, x) => {
-        if (item == 8) {
+        if (item === 8 || item === 9 ) {
           console.log('player at ', x, y)
           at = {
             x,
@@ -147,7 +145,7 @@ Page({
         x,
         y
       } = at
-      this.move(8, [x, y], [x, y - 1])
+      this.move(9, [x, y], [x, y - 1])
     }
     this.draw()
   },
@@ -163,7 +161,7 @@ Page({
         y
       } = at
       console.log(x, y)
-      this.move(8, [x, y], [x, y + 1])
+      this.move(9, [x, y], [x, y + 1])
     }
     this.draw()
   },
@@ -178,7 +176,7 @@ Page({
         x,
         y
       } = at
-      this.move(8, [x, y], [x - 1, y])
+      this.move(9, [x, y], [x - 1, y])
     }
     this.draw()
   },
@@ -193,7 +191,7 @@ Page({
         x,
         y
       } = at
-      this.move(8, [x, y], [x + 1, y])
+      this.move(9, [x, y], [x + 1, y])
     }
     this.draw()
   },
@@ -215,7 +213,7 @@ Page({
         this.move(id, from, to, callback)
       })
     }
-    if (target == 2 && id == 8) {
+    if ((target == 2 || target == 4) && (id == 8 || id === 9)) {
       // next stage 
       const {
         stage_index
@@ -287,7 +285,7 @@ Page({
         })
 
         // ctx.scale(dpr, dpr)
-        load([1, 2, 3, 4, 8], canvas, (loaded_images) => {
+        load([1, 2, 3, 4, 8, 9], canvas, (loaded_images) => {
           _self.setData({
             images: loaded_images
           })
