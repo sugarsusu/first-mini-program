@@ -1,2 +1,23 @@
 <!--pages/Home/Home.wxml-->
-<text>pages/Home/Home.wxml</text>
+<view class="container">
+  <view class="stage">Stage {{stage_index+1}}</view>
+  <view class="box">
+    <view class="screen">
+      <canvas type="2d" id="myCanvas"></canvas>
+    </view>
+  </view>
+  <view class="ctrl">
+    <view class="left">
+      <view class="block-up" bindtap="up">上</view>
+      <view class="center-row-box">
+        <view class="block-up" bindtap="left">左</view>
+        <view class="block-up" bindtap="right">右</view>
+      </view>
+      <view class="block-up" bindtap="down">下</view>
+    </view>
+
+    <view class="right">
+      <button bindtap="start">重新开始</button>
+    </view>
+  </view>
+</view>
