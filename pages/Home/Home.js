@@ -18,7 +18,7 @@ Page({
       y: 0
     },
     stage_index: 0,
-    map: []
+    bgMap: []
   },
   // 事件处理函数
   bindViewTap() {
@@ -72,9 +72,10 @@ Page({
       ctx,
       width,
       height,
-      map,
+      bgMap,
       images
     } = this.data
+    console.log('%c [ images ]-77', 'font-size:px; background:pink; color:#bf2c9f;', images)
 
     //clear screen
     ctx.fillStyle = "#000"
@@ -83,14 +84,17 @@ Page({
     //draw player
     ctx.fillStyle = "#f00"
 
-    const n = map.length
+    const n = bgMap.length
+    console.log('%c [ b g ]-87', 'font-size:px; background:pink; color:#bf2c9f;', bgMap)
     const size = width / n
 
-    console.log(n, size)
+    console.log("n,size", n, size)
 
-    map.forEach((line, y) => {
+    bgMap.forEach((line, y) => {
       line.forEach((item, x) => {
-        if (item != 0) {
+        if (item !== 0) {
+          console.log('%c [ x * size ]-99', 'font-size:px; background:pink; color:#bf2c9f;', x * size)
+          console.log('%c [ images ]-98', 'font-size:px; background:pink; color:#bf2c9f;', images)
           ctx.drawImage(images.filter(img => {
             return img.id === item
           })[0].img, x * size, y * size, size, size)
@@ -100,26 +104,26 @@ Page({
   },
   get_map(x, y) {
     const {
-      map
+      bgMap
     } = this.data
-    return map[y][x]
+    return bgMap[y][x]
   },
   set_map(x, y, value) {
     const {
-      map
+      bgMap
     } = this.data
-    const new_map = [...map]
+    const new_map = [...bgMap]
     new_map[y][x] = value
     this.setData({
-      map: new_map
+      bgMap: new_map
     })
   },
   find_player() {
     const {
-      map
+      bgMap
     } = this.data
     let at = null
-    map.forEach((line, y) => {
+    bgMap.forEach((line, y) => {
       line.forEach((item, x) => {
         if (item == 8) {
           console.log('player at ', x, y)
@@ -134,7 +138,7 @@ Page({
   },
   up() {
     const {
-      map
+      bgMap
     } = this.data
     //find player 8
     const at = this.find_player()
@@ -149,7 +153,7 @@ Page({
   },
   down() {
     const {
-      map
+      bgMap
     } = this.data
     //find player 8
     const at = this.find_player()
@@ -165,7 +169,7 @@ Page({
   },
   left() {
     const {
-      map
+      bgMap
     } = this.data
     //find player 8
     const at = this.find_player()
@@ -180,7 +184,7 @@ Page({
   },
   right() {
     const {
-      map
+      bgMap
     } = this.data
     //find player 8
     const at = this.find_player()
@@ -219,10 +223,10 @@ Page({
 
       const next = stage_index + 1
       if (next < stages.length) {
-        const map = JSON.parse(JSON.stringify(stages[next]));
+        const bgMap = JSON.parse(JSON.stringify(stages[next]));
         this.setData({
           stage_index: next,
-          map: [...stages[next]]
+          bgMap: [...stages[next]]
         })
       } else {
         // 通关
@@ -231,10 +235,10 @@ Page({
           content: '你已经通关了，是否重新玩一局？',
           success(res) {
             if (res.confirm) {
-              const map = JSON.parse(JSON.stringify(stages[0]));
+              const bgMap = JSON.parse(JSON.stringify(stages[0]));
               _self.setData({
                 stage_index: 0,
-                map: map
+                bgMap: bgMap
               })
               _self.start()
             } else if (res.cancel) {
@@ -246,9 +250,9 @@ Page({
     }
   },
   start() {
-    const map = JSON.parse(JSON.stringify(stages[this.data.stage_index]));
+    const bgMap = JSON.parse(JSON.stringify(stages[this.data.stage_index]));
     this.setData({
-      map: map
+      bgMap: bgMap
     })
     this.draw()
   },
@@ -263,7 +267,7 @@ Page({
       .exec((res) => {
         const canvas = res[0].node
         const ctx = canvas.getContext('2d')
-        console.log(res[0])
+        console.log("res",res[0])
 
         const dpr = wx.getSystemInfoSync().pixelRatio
         // canvas.width = res[0].width * dpr
@@ -283,7 +287,7 @@ Page({
         })
 
         // ctx.scale(dpr, dpr)
-        load([1, 2, 3, 8], canvas, (loaded_images) => {
+        load([1, 2, 3, 4, 8], canvas, (loaded_images) => {
           _self.setData({
             images: loaded_images
           })
