@@ -67,6 +67,7 @@ Page({
     ctx.fillStyle = "#f00"
     ctx.fillRect(0, height / 2 - 2, progress * width, 4);
   },
+
   draw() {
     const {
       ctx,
@@ -82,10 +83,9 @@ Page({
     ctx.fillRect(0, 0, width, height);
 
     //draw player
-    ctx.fillStyle = "#f00"
+    ctx.fillStyle = "#000"
 
     const n = bgMap.length
-    console.log('%c [ b g ]-87', 'font-size:px; background:pink; color:#bf2c9f;', bgMap)
     const size = width / n
 
     console.log("n,size", n, size)
@@ -250,7 +250,7 @@ Page({
   start() {
     const bgMap = JSON.parse(JSON.stringify(stages[this.data.stage_index]));
     this.setData({
-      bgMap: bgMap
+      bgMap: bgMap  
     })
     this.draw()
   },
