@@ -76,7 +76,6 @@ Page({
       bgMap,
       images
     } = this.data
-    console.log('%c [ images ]-77', 'font-size:px; background:pink; color:#bf2c9f;', images)
 
     //clear screen
     ctx.fillStyle = "#000"
@@ -88,7 +87,7 @@ Page({
     const n = bgMap.length
     const size = width / n
 
-    console.log("n,size", n, size)
+    console.log("n, size", n, size)
 
     bgMap.forEach((line, y) => {
       line.forEach((item, x) => {
@@ -160,7 +159,7 @@ Page({
         x,
         y
       } = at
-      console.log(x, y)
+      console.log('[ x, y ] >', x, y)
       this.move(9, [x, y], [x, y + 1])
     }
     this.draw()
